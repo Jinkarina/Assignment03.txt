@@ -1,12 +1,14 @@
 --This is the third assignment. We are writing some introductry queries using the database named: AdventureWorkdDW2012--
 
 --Find the list of the Top 10 employee first and last names in uppercase for the last names and lowercase for first names that their last names start with either d, k, or i, ordered by their base rate decending salary.--
+
 Select Top 10 upper(LastName)as Lastname, lower(FirstName)as Firstname
 From Employee
 Where LastName like'[dki]%'
 Order By BaseRate DESC;
 
 --List order quantity, the day and month of its order date of the internet sales orders that had been ordered in 2006 and its unit price is greater than 3500$.--
+
 Select OrderQuantity as Quantity,OrderDate as Orderdate
 From FactInternetSales
 Where DATEPART(YY,OrderDate)=2006 and unitprice>3500;
