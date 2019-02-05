@@ -12,5 +12,22 @@ From FactInternetSales
 Where DATEPART(YY,OrderDate)=2006 and unitprice>3500;
 
 --Give me the count of all the products, the average, the minimum and the maximum dealer price, listing price and standard cost. Rename the new fields.--
+
 Select Count(*)as num_prod, AVG(DealerPrice)as avg_price,MIN(DealerPrice)as min_price, MAX(DealerPrice)as max_price, ListPrice as list_price,StandardCost as standard_cost
 From Product;
+
+--How many times we re-ordered each product and its average unit price(use fact seller sales table)? To answer this question do the following: Find the count of sales order number and the average unit price, just of the ones that was ordered more than 60 times by groups of sales order numbers.--
+
+Select Count(SalesOrderNumber)as num_salesorder, Avg(UnitPrice)as avg_price
+From FactResellerSales
+Group By SalesOrderNumber
+Having Count(SalesOrderNumber)>60;
+
+--Give me the list of all first and last names of customers who ordered red color products where its re-selling unit price is greater than 2000$.--
+
+Select FirstName,LastName
+From Customer
+Where CustomerKey
+in(Select CustomerKey
+From FactInternetSales
+Where UnitPrice>2000)
